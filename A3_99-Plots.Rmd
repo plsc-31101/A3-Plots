@@ -1,0 +1,129 @@
+---
+title: "Assignment 3 Solutions"
+author: "PLSC 31101"
+date: "Fall 2020"
+output: html_document
+---
+
+## Assignment 3
+
+- __Assigned__: TBD.
+- __Due__: TBD.
+
+
+For this assignment, we'll be working with the country-year data introduced in the last assignment. As a reminder, the dataset contains the following variables:
+
+* `year`: Year.
+* `ccode`: Country numerical code.
+* `country`: Country name.
+* `idealpoint` UN Ideal point.
+* `polity2`: Polity2 score of regime type (from Polity IV).
+* `physint`: Physical Integrity Rights score (from CIRI dataset).
+* `speech`: Speech Rights score (from CIRI).
+* `gdp.pc.wdi`: GDP per capita (from World Bank).
+* `pop.wdi`: Population (from World Bank).
+* `amnesty`: Political Terror Scale using Amnesty International reports (from Political Terror Scale project).
+* `cinc`: Composite Index of Military Capabilities (Correlates of War).
+* `region`: Geographic region.
+
+#### 1. Getting Started {-}
+
+__1.1 Read `data/country-year.csv` into R, using a relative path. Store it in an object called `dat`.__
+
+```{r}
+library(tidyverse)
+library(stargazer)
+dat <- read.csv("Data/country-year.csv", stringsAsFactors = F)
+```
+
+#### 2. Plotting {-}
+
+__2.1 Write code that reproduces "plots/Plot_1.jpeg". (No need to write the file.)__
+
+```{r}
+# Density of population
+d <- density(log(dat$pop.wdi), na.rm = T, bw = .2)
+plot(d, main = "Summary of Population (Logged)") 
+abline(h = max(d$y), v = 16.09, lty = 2) 
+```
+
+__2.2 Write code that reproduces "plots/Plot_2.jpeg". (No need to write the file.)__
+
+```{r}
+# get summary data
+country_means <- dat %>%
+  filter(!is.na(region)) %>%
+  group_by(country) %>%
+  summarise(gdp = mean(gdp.pc.wdi, na.rm = T),
+            polity = mean(polity2, na.rm = T),
+            cinc = mean(cinc, na.rm = T),
+            region = region[1])
+
+# plot
+ggplot(country_means, aes(x = polity, y = log10(gdp))) +
+  geom_point(aes(color = region)) +
+  #scale_y_log10() +
+  geom_smooth(color="red", fill="red") + 
+  ylab("Mean GDP (Logged) ") +
+  xlab("Mean Polity Score") +
+  ggtitle("Average Polity Score by GDP, 1979-2014") 
+```
+
+__2.3 Write code that reproduces "plots/Plot_3.jpeg". (No need to write the file.)__
+
+__Hint: The fall-inspired colors are #771C19, #E25033, #F27314, #F8A31B__
+
+```{r}
+# military capabilities
+top_cinc <- country_means %>%
+  top_n(10, cinc)
+
+# Fall theme
+rhg_cols = c("#771C19","#E25033","#F27314", "#F8A31B")
+
+# plot
+ggplot(top_cinc, aes(reorder(country, cinc), cinc, fill = region)) +
+  geom_col() +
+  theme(axis.text.x=element_text(size = 7, angle=45, hjust=1)) +
+  ylab("Composite Index of Military Capabilities") +
+  xlab("Country") +
+  ggtitle("Top 10 Military Capabilities, in Fall Colors") +
+  scale_fill_manual(values = rhg_cols)
+```
+
+__2.4 Write code that reproduces "plots/Plot_4.jpeg". (No need to write the file.)__
+
+```{r}
+# prepare data
+year_means <- dat %>%
+  filter(!is.na(region)) %>%
+  group_by(year, region) %>%
+  summarise(gdp = mean(gdp.pc.wdi, na.rm = T),
+            polity = mean(polity2, na.rm = T),
+            physint = mean(physint, na.rm = T)) 
+
+# plot
+ggplot(year_means, aes(x = year, y = polity, color = region)) +
+  geom_line(size=2) +
+  ylab("Average Polity Score") +
+  xlab("Year") +
+  ggtitle("Average Polity Score Over Time")
+```
+
+#### 3. Models {-}
+
+__3.1 Write code that reproduces the model summary table "reg_table.txt" (and writes the file).__
+
+```{r}
+mod.1 <- lm(physint ~ polity2, data = dat)
+mod.2 <- lm(physint ~ polity2 + log(gdp.pc.wdi), data = dat)
+mod.3 <- lm(physint ~ polity2 + log(gdp.pc.wdi) + region, data = dat)
+
+stargazer(mod.1, mod.2, mod.3, title = "Regression Results", type = "text", 
+          covariate.labels  = c("Polity2", "GDP per capita, logged", "Asia", "Eastern Europe", "Latin America", "MENA", "West", "Constant"), 
+          dep.var.labels = "DV: Physical Integrity",
+          omit = "Constant", 
+          keep.stat="n", style = "ajps",
+          out = "reg_table.txt")
+```
+

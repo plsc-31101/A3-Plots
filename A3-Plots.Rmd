@@ -1,0 +1,71 @@
+---
+title: "Assignment 3"
+author: "PLSC 31101"
+date: "Fall 2020"
+output: html_document
+---
+
+## Assignment 3
+
+- __Assigned__: TBD.
+- __Due__: TBD.
+
+For this assignment, we'll be working with the country-year data introduced in the last assignment. As a reminder, the dataset contains the following variables:
+
+* `year`: Year.
+* `ccode`: Country numerical code.
+* `country`: Country name.
+* `idealpoint` UN Ideal point.
+* `polity2`: Polity2 score of regime type (from Polity IV).
+* `physint`: Physical Integrity Rights score (from CIRI dataset).
+* `speech`: Speech Rights score (from CIRI).
+* `gdp.pc.wdi`: GDP per capita (from World Bank).
+* `pop.wdi`: Population (from World Bank).
+* `amnesty`: Political Terror Scale using Amnesty International reports (from Political Terror Scale project).
+* `cinc`: Composite Index of Military Capabilities (Correlates of War).
+* `region`: Geographic region.
+
+#### 1. Getting Started {-}
+
+__1.1 Read `data/country-year.csv` into R, using a relative path. Store it in an object called `dat`.__
+
+```{r}
+# YOUR CODE HERE
+```
+
+#### 2. Plotting {-}
+
+__2.1 Write code that reproduces "plots/Plot_1.jpeg". (No need to write the file.)__
+
+```{r}
+# YOUR CODE HERE
+```
+
+__2.2 Write code that reproduces "plots/Plot_2.jpeg". (No need to write the file.)__
+
+```{r}
+# YOUR CODE HERE
+```
+
+__2.3 Write code that reproduces "plots/Plot_3.jpeg". (No need to write the file.)__
+
+__Hint: The fall-inspired colors are #771C19, #E25033, #F27314, #F8A31B__
+
+```{r}
+# YOUR CODE HERE
+```
+
+__2.4 Write code that reproduces "plots/Plot_4.jpeg". (No need to write the file.)__
+
+```{r}
+# YOUR CODE HERE
+```
+
+#### 3. Models {-}
+
+__3.1 Write code that reproduces the model summary table "reg_table.txt" (and writes the file).__
+
+```{r}
+# YOUR CODE HERE
+```
+
