@@ -7,8 +7,8 @@ output: html_document
 
 ## Assignment 3
 
-- __Assigned__: TBD.
-- __Due__: TBD.
+- __Assigned__: Oct 19, 2020
+- __Due__: Oct 26, 2020
 
 For this assignment, we'll be working with the country-year data introduced in the last assignment. As a reminder, the dataset contains the following variables:
 
@@ -25,47 +25,62 @@ For this assignment, we'll be working with the country-year data introduced in t
 * `cinc`: Composite Index of Military Capabilities (Correlates of War).
 * `region`: Geographic region.
 
-#### 1. Getting Started {-}
+## 1. Getting Started
 
-__1.1 Read `data/country-year.csv` into R, using a relative path. Store it in an object called `dat`.__
+### 1.1 
 
-```{r}
-# YOUR CODE HERE
-```
-
-#### 2. Plotting {-}
-
-__2.1 Write code that reproduces "plots/Plot_1.jpeg". (No need to write the file.)__
+Read `data/country-year.csv` into R, using a relative path. Store it in an object called `dat`.
 
 ```{r}
 # YOUR CODE HERE
 ```
 
-__2.2 Write code that reproduces "plots/Plot_2.jpeg". (No need to write the file.)__
+## 2. Plotting 
+
+### 2.1 
+
+Write code that reproduces `plots/Plot_1.jpeg`. (No need to write the file.)
 
 ```{r}
 # YOUR CODE HERE
 ```
 
-__2.3 Write code that reproduces "plots/Plot_3.jpeg". (No need to write the file.)__
+### 2.2 
 
-__Hint: The fall-inspired colors are #771C19, #E25033, #F27314, #F8A31B__
-
-```{r}
-# YOUR CODE HERE
-```
-
-__2.4 Write code that reproduces "plots/Plot_4.jpeg". (No need to write the file.)__
+Write code that reproduces `plots/Plot_2.jpeg`. (No need to write the file.)
 
 ```{r}
 # YOUR CODE HERE
 ```
 
-#### 3. Models {-}
+### 2.3 
 
-__3.1 Write code that reproduces the model summary table "reg_table.txt" (and writes the file).__
+Write code that reproduces `plots/Plot_3.jpeg`. (No need to write the file.)
+
+Hint: The fall-inspired colors are #771C19, #E25033, #F27314, #F8A31B
 
 ```{r}
+# YOUR CODE HERE
+```
+
+## 3. Models
+
+### 3.1 
+
+Write code that reproduces the model summary table `regression-table.txt` (and writes the file).
+
+```{r}
+# YOUR CODE HERE
+```
+
+## 4. Extra Bonus Challenge
+
+Using the code from chapter 13.2 as a guide, plot the marginal effects of each term in the model below, EXCLUDING the intercept and the `ccode` dummy variables.
+
+```{r}
+# estimate model
+mod <- lm(physint ~ polity2 + idealpoint + log(gdp.pc.wdi) + log(pop.wdi) + factor(ccode), data = dat)
+
 # YOUR CODE HERE
 ```
 
