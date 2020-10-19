@@ -5,7 +5,7 @@ date: "Fall 2020"
 output: html_document
 ---
 
-## Assignment 3
+# Assignment 3
 
 - __Assigned__: Oct 19, 2020
 - __Due__: Oct 26, 2020
@@ -49,6 +49,9 @@ Write code that reproduces `plots/Plot_1.jpeg`. (No need to write the file.)
 
 Write code that reproduces `plots/Plot_2.jpeg`. (No need to write the file.)
 
+Hint: The fall-inspired colors are #771C19, #E25033, #F27314, #F8A31B
+
+
 ```{r}
 # YOUR CODE HERE
 ```
@@ -56,8 +59,6 @@ Write code that reproduces `plots/Plot_2.jpeg`. (No need to write the file.)
 ### 2.3 
 
 Write code that reproduces `plots/Plot_3.jpeg`. (No need to write the file.)
-
-Hint: The fall-inspired colors are #771C19, #E25033, #F27314, #F8A31B
 
 ```{r}
 # YOUR CODE HERE
